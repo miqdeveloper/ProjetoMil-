@@ -1,0 +1,8 @@
+https://developers.whatismybrowser.com/useragents/parse/1302411-chrome-windows-blink
+Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36
+https://developers.whatismybrowser.com/useragents/parse/1274200-chrome-windows-blink
+https://developers.whatismybrowser.com/useragents/parse/627832-chrome-windows-blink
+https://developers.whatismybrowser.com/useragents/parse/636-chrome-linux-blink
+https://developers.whatismybrowser.com/useragents/parse/622180-chrome-windows-blink
+https://developers.whatismybrowser.com/useragents/parse/1252990-chrome-windows-blink
+https://developers.whatismybrowser.com/useragents/parse/20925-chrome-windows-blink
