@@ -66,7 +66,7 @@ class reg_linear():
 			if str(self.str_var) == '-':			
 				self.buy_d.call_buy_dig(self.ativo, self.money, self.put, self.time)
 				print("pred -->", self.str_var)	
-				print('\n')			
+				print('\n')
 				#self.contador.lose+=1
 			if str(self.str_var) != '-':
 				self.buy_d.call_buy_dig(self.ativo, self.money, self.call, self.time)
