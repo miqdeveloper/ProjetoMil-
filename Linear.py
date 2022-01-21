@@ -1,15 +1,22 @@
 from buy_digital import buy_digital_action
 import pandas as pd
 import json
+from joblib import dump, load
 from time import strftime
 from sklearn.preprocessing import  StandardScaler
 #from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import *
 from sklearn.metrics import r2_score, mean_squared_error
 import time, os
 import numpy as np
 #from buy import buy
 from iqoptionapi.stable_api import IQ_Option
+
+Pkl_Filename = "filename_save1.joblib" 
+
+
+
 
 
 class reg_linear():
@@ -27,6 +34,9 @@ class reg_linear():
 			self.call = str(self.j['call'])
 			self.put = str(self.j['put'])
 
+
+
+
 	def calc_reg(self):
 		#time.sleep(timer) # Resultado para cada 59 segundos. Altere se quiser
 		try:
@@ -43,35 +53,44 @@ class reg_linear():
 
 			#x_train, x_test, y_train, y_test = train_test_split(x_values, y_values, train_size=0.80)
 
-			self.model = LinearRegression()
+			self.model = load(Pkl_Filename)
 			self.fit = self.model.fit(self.x_values, self.y_values)
+			#dump(self.fit, Pkl_Filename) 
+
 			self.preditx = self.model.predict(self.x_values)
+
 			self.MSE = mean_squared_error(self.y_values, self.preditx)
 			self.CED = round(r2_score(self.y_values, self.preditx), 2)
+
+
 			self.time_day = strftime("%H:%M:%S")
 			#print("Row: %i" % i)
-			print("chance de Alta:| {} || {} |".format(self.CED, self.time_day))
+			print("chance de Alta r2:| {} || {} |".format(self.CED, self.time_day))
 			print("mse:", self.MSE)
 			print('')
-			print('Coeficiente -> coef_ -->', self.model.coef_)
+			#print('Coeficiente -> coef_ -->', self.model.coef_)
 			self.y_pred = self.model.predict(self.x_values)
-			self.y_pred = self.y_pred[61]
+			#self.y_pred_1 = self.y_pred[30]
+			self.y_pred_2 = self.y_pred[60]
+			#self.y_pred_3 = self.y_pred[60]
 			#print(self.y_pred)
 			#print(r2_score(y_test, y_pred))
-			print('Preditativa ->', self.y_pred)
-			self.var = self.y_pred
-			self.var_ = str(self.var[0])
-			self.str_var = str(self.var_[0])		
+			#print('Preditativa_1 ->', self.y_pred_1)
+			#print('Preditativa_2 ->', self.y_pred_2)
 			#print(self.str_var)
-			if str(self.str_var) == '-':			
+			if self.CED  >= 0.57:
+				#if str(self.y_pred_2[0]) == "-":
+				self.buy_d.call_buy_dig(self.ativo, self.money, self.call, self.time)
+				#print("pred_put-->", self.y_pred_2)
+				print("Compra - Call")
+				print('\n')
+
+			else:
 				self.buy_d.call_buy_dig(self.ativo, self.money, self.put, self.time)
-				print("pred -->", self.str_var)	
+				#print("pred_call -->", self.y_pred_2)
+				print("Venda - Put")
 				print('\n')
 				#self.contador.lose+=1
-			if str(self.str_var) != '-':
-				self.buy_d.call_buy_dig(self.ativo, self.money, self.call, self.time)
-				print("pred_call -->", self.str_var)
-				print('\n')				
 				#self.contador.win+=1
 				#print("Ganhos e perdas --> {}/{}".format(self.contador.win, self.contador.lose))	
 			os.remove("iqdataset.csv")

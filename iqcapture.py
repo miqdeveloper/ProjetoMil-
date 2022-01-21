@@ -29,8 +29,8 @@ class IQ_capture():
 
 		self.file_json = "config/dates_config.json"
 		self.program_json = "config/program_config.json"
-		self.file_useragentxt = "http/useragents.txt"
-		self.file_proxy = "http/proxys.txt"
+		#self.file_useragentxt = "http/useragents.txt"
+		#self.file_proxy = "http/proxys.txt"
 
 		with open(self.file_json, 'r+') as file_json:
 			json_loads = loads(file_json.read())
@@ -45,25 +45,6 @@ class IQ_capture():
 			self.money = json_program_loads["money"]
 			self.time = json_program_loads["time"]
 
-		with open(self.file_useragentxt, 'r+') as file_useragent:
-			try:
-				while True:
-					self.rand_ =  list(file_useragent.readlines())
-					self.rand = randint(0, int(len(self.rand_)))
-					self.rand_int = self.rand_[self.rand]
-					self.header_ = str({"User-Agent": "%s" %self.rand_int})
-			except IndexError as e:
-				pass
-
-		with open(self.file_proxy) as file_proxytxt:				
-			try:
-				while True:
-					self.rand_proxy = list(file_proxytxt.readlines())
-					self.rand_proxy_ = randint(0, int(len(self.rand_proxy)))
-					self.rand_int_ = self.rand_proxy[self.rand_proxy_]
-					self.proxy_ = {self.rand_int_}
-			except IndexError as e:
-				pass
 	def IQconnect(self):
 		import json		
 		try:

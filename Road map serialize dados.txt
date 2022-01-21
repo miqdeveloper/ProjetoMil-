@@ -1,0 +1,8 @@
+Road map serialize dados 
+
+insrir
+    pega dados do bot e grava em json
+atualizar
+    atualiza os dados caso necessario 
+deletar
+     deleta     CASO NECESSÁRIO
